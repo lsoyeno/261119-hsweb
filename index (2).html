@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATELIER ARCHIVE — Curated Vintage & Digital Lookbook</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-white: #FAF8F5;
+      --bg-beige: #F2ECE1;
+      --bg-card: #FFFFFF;
+      --sand: #E3D9C6;
+      --point-terracotta: #9E5A3C;
+      --point-olive: #5C6650;
+      --point-gold: #B08D57;
+      --text-main: #23201E;
+      --text-sub: #6E665F;
+      --border: #E5DEC9;
+      --shadow: 0 12px 32px rgba(35, 32, 30, 0.06);
+      --radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-white);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .serif {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      letter-spacing: -0.01em;
+    }
+
+    /* Top Notice Bar */
+    .top-bar {
+      background-color: var(--text-main);
+      color: var(--bg-beige);
+      text-align: center;
+      font-size: 0.78rem;
+      padding: 8px 16px;
+      letter-spacing: 0.04em;
+    }
+    .top-bar span {
+      color: #E6C79C;
+      font-weight: 600;
+    }
+
+    /* Header & Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 248, 245, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-main);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+    }
+    .logo span {
+      color: var(--point-terracotta);
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 28px;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--text-main);
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    nav a:hover {
+      color: var(--point-terracotta);
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    .btn-outline {
+      background: transparent;
+      border-color: var(--text-main);
+      color: var(--text-main);
+    }
+    .btn-outline:hover {
+      background: var(--text-main);
+      color: var(--bg-white);
+    }
+    .btn-primary {
+      background: var(--point-terracotta);
+      color: #FFF;
+    }
+    .btn-primary:hover {
+      background: #84482E;
+      transform: translateY(-1px);
+    }
+    .btn-dark {
+      background: var(--text-main);
+      color: var(--bg-white);
+    }
+    .btn-dark:hover {
+      background: #3D3834;
+    }
+
+    /* User Status Pill */
+    .user-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-beige);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+    .tier-badge {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .tier-BRONZE { background: #E6D2C2; color: #6E472B; }
+    .tier-SILVER { background: #E2E4E6; color: #4A5056; }
+    .tier-GOLD { background: #F5E6C4; color: #8A6218; }
+    .tier-VIP { background: var(--point-terracotta); color: #FFF; }
+
+    /* Hero Slider */
+    .hero {
+      position: relative;
+      height: 78vh;
+      min-height: 540px;
+      max-height: 760px;
+      overflow: hidden;
+      background: var(--bg-beige);
+    }
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.9s ease-in-out, visibility 0.9s;
+    }
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.84);
+      transform: scale(1.03);
+      transition: transform 6s ease-out;
+    }
+    .slide.active img {
+      transform: scale(1);
+    }
+    .slide-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(28, 24, 21, 0.62) 0%, rgba(28, 24, 21, 0.18) 60%, transparent 100%);
+      display: flex;
+      align-items: center;
+    }
+    .slide-content {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 32px;
+      color: #FAF8F5;
+    }
+    .slide-tag {
+      display: inline-block;
+      background: rgba(158, 90, 60, 0.92);
+      color: #FFF;
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .slide-content h1 {
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      line-height: 1.12;
+      margin-bottom: 18px;
+      max-width: 650px;
+    }
+    .slide-content p {
+      font-size: 1.05rem;
+      color: #EFECE6;
+      max-width: 520px;
+      margin-bottom: 28px;
+      font-weight: 300;
+    }
+    .slider-controls {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      z-index: 10;
+    }
+    .dot {
+      width: 32px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.4);
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .dot.active {
+      background: #FFF;
+      width: 48px;
+    }
+    .arrow-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(250, 248, 245, 0.85);
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--text-main);
+      z-index: 10;
+      transition: var(--transition);
+    }
+    .arrow-btn:hover {
+      background: #FFF;
+      color: var(--point-terracotta);
+    }
+    .prev-slide { left: 24px; }
+    .next-slide { right: 24px; }
+
+    /* Section Commons */
+    section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 84px 24px;
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 42px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .section-subtitle {
+      color: var(--point-terracotta);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .section-title {
+      font-size: 2.4rem;
+      color: var(--text-main);
+    }
+
+    /* Filter Tabs */
+    .filter-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-sub);
+      font-size: 0.86rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--text-main);
+      color: var(--bg-white);
+      border-color: var(--text-main);
+    }
+
+    /* Product Grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+      gap: 28px;
+    }
+    .product-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow);
+    }
+    .product-img-wrap {
+      position: relative;
+      aspect-ratio: 3 / 4;
+      background: var(--bg-beige);
+      overflow: hidden;
+    }
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .product-card:hover .product-img-wrap img {
+      transform: scale(1.05);
+    }
+    .era-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(250, 248, 245, 0.92);
+      color: var(--text-main);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+    }
+    .ebook-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: var(--point-olive);
+      color: #FFF;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-weight: 600;
+    }
+    .product-info {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .product-meta {
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      margin-bottom: 4px;
+    }
+    .product-title {
+      font-family: 'Pretendard', sans-serif;
+      font-size: 1.06rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+    .product-desc {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      margin-bottom: 16px;
+    }
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid var(--bg-beige);
+    }
+    .price-box .price {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .price-box .point-earn {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--point-terracotta);
+      font-weight: 500;
+    }
+
+    /* Digital E-Book Highlight Banner */
+    .ebook-banner-wrap {
+      background: var(--bg-beige);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .ebook-showcase {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .ebook-cover {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    .ebook-cover img {
+      width: 100%;
+      display: block;
+    }
+    .ebook-details h2 {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .ebook-features {
+      list-style: none;
+      margin: 20px 0 28px;
+      display: grid;
+      gap: 10px;
+    }
+    .ebook-features li {
+      font-size: 0.94rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ebook-features li::before {
+      content: "✦";
+      color: var(--point-terracotta);
+      font-weight: bold;
+    }
+
+    /* Membership Tiers Section */
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
+    }
+    .tier-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      position: relative;
+      transition: var(--transition);
+    }
+    .tier-card.highlight {
+      border: 2px solid var(--point-terracotta);
+      background: #FFFDF9;
+    }
+    .tier-rate {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: var(--point-terracotta);
+      margin: 12px 0;
+    }
+    .tier-card ul {
+      list-style: none;
+      margin-top: 16px;
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      display: grid;
+      gap: 8px;
+    }
+
+    /* My E-Book Library Section */
+    .library-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-top: 24px;
+    }
+    .library-empty {
+      text-align: center;
+      padding: 36px 16px;
+      color: var(--text-sub);
+    }
+    .unlocked-book-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      background: var(--bg-beige);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* Modals & Drawers */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(25, 22, 20, 0.55);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 20px;
+    }
+    .modal-backdrop.open {
+      display: flex;
+    }
+    .modal {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      max-width: 520px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 32px;
+      position: relative;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.18);
+    }
+    .modal.modal-lg {
+      max-width: 780px;
+    }
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-sub);
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #FFF;
+      font-size: 0.94rem;
+    }
+
+    /* Cart Drawer */
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -440px;
+      width: 100%;
+      max-width: 420px;
+      height: 100vh;
+      background: var(--bg-white);
+      border-left: 1px solid var(--border);
+      z-index: 1000;
+      transition: right 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      box-shadow: -12px 0 40px rgba(0,0,0,0.1);
+    }
+    .cart-drawer.open {
+      right: 0;
+    }
+    .cart-header {
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 24px;
+    }
+    .cart-item {
+      display: flex;
+      gap: 14px;
+      padding-bottom: 16px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--bg-beige);
+    }
+    .cart-item img {
+      width: 68px;
+      height: 86px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .cart-footer {
+      padding: 20px 24px;
+      background: var(--bg-beige);
+      border-top: 1px solid var(--border);
+    }
+
+    /* E-Book Reader Styles */
+    .reader-page {
+      background: #FFFDF9;
+      border: 1px solid var(--sand);
+      padding: 32px;
+      border-radius: 10px;
+      margin-top: 16px;
+      line-height: 1.85;
+    }
+    .reader-page h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      color: var(--point-terracotta);
+      margin-bottom: 12px;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--text-main);
+      color: var(--bg-white);
+      padding: 14px 22px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      z-index: 2000;
+      transform: translateY(120%);
+      opacity: 0;
+      transition: all 0.35s ease;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    footer {
+      background: var(--text-main);
+      color: var(--sand);
+      padding: 60px 24px 36px;
+      margin-top: 40px;
+    }
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 36px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(227, 217, 198, 0.15);
+    }
+    .footer-bottom {
+      max-width: 1280px;
+      margin: 24px auto 0;
+      font-size: 0.82rem;
+      color: #9A9187;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    @media (max-width: 860px) {
+      nav ul { display: none; }
+      .ebook-showcase { grid-template-columns: 1fr; }
+      .hero { height: 66vh; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement -->
+  <div class="top-bar">
+    신규 회원가입 시 즉시 사용 가능한 <span>3,000P</span> 증정 &amp; 디지털 빈티지 룩북 결제 즉시 열람 가능
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="logo">ATELIER <span>ARCHIVE</span></a>
+      <nav>
+        <ul>
+          <li><a href="#archive-shop">빈티지 아카이브</a></li>
+          <li><a href="#ebook-section">디지털 전자책</a></li>
+          <li><a href="#membership-section">등급 &amp; 포인트</a></li>
+          <li><a href="#my-library">내 서재 (즉시열람)</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <div id="authArea">
+          <button class="btn btn-outline" onclick="openAuthModal()">로그인 / 회원가입</button>
+        </div>
+        <button class="btn btn-dark" onclick="toggleCart()">
+          장바구니 (<span id="cartCount">0</span>)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Slider (3 Curated Vintage Slides) -->
+  <section class="hero" style="max-width:100%; padding:0;">
+    <div class="slide active">
+      <img src="img/hero-1.jpg" alt="1970s Vintage Suede Trench Coat & Silk Scarf">
+      <div class="slide-overlay">
+        <div class="slide-content">
+          <span class="slide-tag">1970s European Archive</span>
+          <h1>시간이 빚어낸 실루엣,<br>단 하나뿐인 빈티지 아카이브</h1>
+          <p>엄격한 복원 케어를 거친 70~90년대 하이엔드 빈티지 피스와 전문가의 스타일링 전자책을 만나보세요.</p>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <a href="#archive-shop" class="btn btn-primary">컬렉션 둘러보기</a>
+            <a href="#ebook-section" class="btn btn-outline" style="border-color:#FAF8F5; color:#FAF8F5;">스타일링 전자책 보기</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <img src="img/hero-2.jpg" alt="1990s Washed Denim & Cream Knitwear">
+      <div class="slide-overlay">
+        <div class="slide-content">
+          <span class="slide-tag">1990s Minimalist Heritage</span>
+          <h1>자연스러운 워싱과<br>따뜻한 베이지 톤의 조화</h1>
+          <p>등급별 최대 10% 포인트 적립 혜택으로 나만의 지속 가능한 옷장을 완성하세요.</p>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <a href="#membership-section" class="btn btn-primary">회원 등급 혜택 확인</a>
+            <button class="btn btn-outline" style="border-color:#FAF8F5; color:#FAF8F5;" onclick="openAuthModal()">신규 가입 3,000P 받기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <img src="img/hero-3.jpg" alt="Classic Camel Wool Blazer & Ivory Lace">
+      <div class="slide-overlay">
+        <div class="slide-content">
+          <span class="slide-tag">Instant Digital Lookbook</span>
+          <h1>결제 즉시 펼쳐보는<br>빈티지 감별 &amp; 스타일북</h1>
+          <p>연대별 라벨 판독법부터 체형별 빈티지 매칭 노하우까지, 구매 직후 내 서재에서 바로 열람하세요.</p>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <a href="#ebook-section" class="btn btn-primary">전자책 바로 구매하기</a>
+            <a href="#my-library" class="btn btn-outline" style="border-color:#FAF8F5; color:#FAF8F5;">내 서재 이동</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="arrow-btn prev-slide" onclick="changeSlide(-1)" aria-label="이전 슬라이드">&#10094;</button>
+    <button class="arrow-btn next-slide" onclick="changeSlide(1)" aria-label="다음 슬라이드">&#10095;</button>
+
+    <div class="slider-controls">
+      <button class="dot active" onclick="goToSlide(0)"></button>
+      <button class="dot" onclick="goToSlide(1)"></button>
+      <button class="dot" onclick="goToSlide(2)"></button>
+    </div>
+  </section>
+
+  <!-- Curated Vintage Products & Digital E-Books -->
+  <section id="archive-shop">
+    <div class="section-header">
+      <div>
+        <span class="section-subtitle">Curated Selection</span>
+        <h2 class="section-title">빈티지 의류 &amp; 아카이브 북</h2>
+      </div>
+      <div class="filter-tabs">
+        <button class="filter-btn active" onclick="filterProducts('all', this)">전체 보기</button>
+        <button class="filter-btn" onclick="filterProducts('outer', this)">아우터</button>
+        <button class="filter-btn" onclick="filterProducts('top', this)">니트 / 상의</button>
+        <button class="filter-btn" onclick="filterProducts('bottom', this)">팬츠</button>
+        <button class="filter-btn" onclick="filterProducts('ebook', this)">디지털 전자책</button>
+      </div>
+    </div>
+
+    <div class="product-grid" id="productGrid"></div>
+  </section>
+
+  <!-- E-Book Instant Delivery Feature Section -->
+  <div class="ebook-banner-wrap" id="ebook-section">
+    <section>
+      <div class="ebook-showcase">
+        <div class="ebook-cover">
+          <img src="img/ebook-guide.jpg" alt="The Art of Timeless Vintage E-Book">
+        </div>
+        <div class="ebook-details">
+          <span class="section-subtitle">Instant Digital Distribution</span>
+          <h2>[전자책] 시대를 초월한 빈티지 스타일링 &amp; 진품 감별 가이드</h2>
+          <p style="color:var(--text-sub);">
+            배송을 기다릴 필요가 없습니다. 결제 완료와 동시에 회원의 <strong>내 서재(My Library)</strong>에 자동 배포되어 PC와 모바일에서 즉시 열람 및 PDF 요약본 확인이 가능합니다.
+          </p>
+          <ul class="ebook-features">
+            <li>1960s~1990s 브랜드별 케어라벨 및 스티치 연대 판독법 수록</li>
+            <li>화이트 &amp; 베이지 톤온톤 빈티지 캡슐 옷장 30가지 코디 룩북</li>
+            <li>울, 스웨이드, 실크 소재별 홈 케어 및 복원 세탁 매뉴얼</li>
+            <li>결제 즉시 1초 만에 서재 활성화 &amp; 회원 등급 포인트 동시 적립</li>
+          </ul>
+          <div style="display:flex; align-items:center; gap:18px; flex-wrap:wrap;">
+            <div>
+              <span style="font-size:0.82rem; color:var(--text-sub); display:block;">디지털 에디션 (즉시 배포)</span>
+              <strong style="font-size:1.5rem;">29,000원</strong>
+            </div>
+            <button class="btn btn-primary" onclick="addToCart('ebook-1')">장바구니 담기</button>
+            <button class="btn btn-dark" onclick="directBuyEbook('ebook-1')">바로 결제 후 즉시 열람</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Membership Grade & Point System -->
+  <section id="membership-section">
+    <div class="section-header">
+      <div>
+        <span class="section-subtitle">Membership &amp; Rewards</span>
+        <h2 class="section-title">회원 등급별 포인트 적립 제도</h2>
+      </div>
+      <p style="color:var(--text-sub); font-size:0.92rem;">누적 구매 금액에 따라 등급이 자동 승급되며, 결제 시 보유 포인트를 현금처럼 사용할 수 있습니다.</p>
+    </div>
+
+    <div class="tier-grid">
+      <div class="tier-card" id="tier-card-BRONZE">
+        <span class="tier-badge tier-BRONZE">BRONZE</span>
+        <div class="tier-rate">2% <span style="font-size:1rem; font-family:'Pretendard'; font-weight:400;">적립</span></div>
+        <p style="font-size:0.85rem; color:var(--text-sub);">신규 회원가입 기본 등급</p>
+        <ul>
+          <li>• 가입 즉시 웰컴 3,000P 지급</li>
+          <li>• 결제 금액의 2% 포인트 적립</li>
+          <li>• 디지털 전자책 즉시 열람 지원</li>
+        </ul>
+      </div>
+
+      <div class="tier-card" id="tier-card-SILVER">
+        <span class="tier-badge tier-SILVER">SILVER</span>
+        <div class="tier-rate">4% <span style="font-size:1rem; font-family:'Pretendard'; font-weight:400;">적립</span></div>
+        <p style="font-size:0.85rem; color:var(--text-sub);">누적 구매 15만원 이상</p>
+        <ul>
+          <li>• 결제 금액의 4% 포인트 적립</li>
+          <li>• 빈티지 복원 케어 가이드 무료 제공</li>
+          <li>• 신상 아카이브 12시간 선오픈</li>
+        </ul>
+      </div>
+
+      <div class="tier-card highlight" id="tier-card-GOLD">
+        <span class="tier-badge tier-GOLD">GOLD</span>
+        <div class="tier-rate">7% <span style="font-size:1rem; font-family:'Pretendard'; font-weight:400;">적립</span></div>
+        <p style="font-size:0.85rem; color:var(--text-sub);">누적 구매 40만원 이상</p>
+        <ul>
+          <li>• 결제 금액의 7% 포인트 적립</li>
+          <li>• 전 상품 무료 배송 및 무료 수선 쿠폰</li>
+          <li>• 시즌 디지털 룩북 1권 무료 배포</li>
+        </ul>
+      </div>
+
+      <div class="tier-card" id="tier-card-VIP">
+        <span class="tier-badge tier-VIP">VIP ARCHIVE</span>
+        <div class="tier-rate">10% <span style="font-size:1rem; font-family:'Pretendard'; font-weight:400;">적립</span></div>
+        <p style="font-size:0.85rem; color:var(--text-sub);">누적 구매 80만원 이상</p>
+        <ul>
+          <li>• 결제 금액의 10% 최고 적립률</li>
+          <li>• 1:1 프라이빗 빈티지 소싱 요청권</li>
+          <li>• 모든 디지털 전자책 무제한 열람</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Instant E-Book Library Section -->
+  <section id="my-library" style="padding-top:20px;">
+    <div class="section-header" style="margin-bottom:18px;">
+      <div>
+        <span class="section-subtitle">Digital Bookshelf</span>
+        <h2 class="section-title">내 서재 — 결제 즉시 배포된 전자책</h2>
+      </div>
+      <div id="libraryUserInfo" style="font-size:0.9rem; color:var(--text-sub);"></div>
+    </div>
+
+    <div class="library-box" id="libraryContainer">
+      <!-- Populated dynamically by JS -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="logo" style="color:#FAF8F5; margin-bottom:12px;">ATELIER <span>ARCHIVE</span></div>
+        <p style="font-size:0.86rem; color:#B8AFA6; line-height:1.7;">
+          화이트와 베이지의 절제된 미학 속에서 시대를 초월한 빈티지 의류와 디지털 스타일 아카이브를 제안합니다.
+        </p>
+      </div>
+      <div>
+        <h4 style="color:#FAF8F5; margin-bottom:12px; font-size:0.95rem;">CUSTOMER CARE</h4>
+        <p style="font-size:0.85rem; color:#B8AFA6;">운영시간: 평일 11:00 - 18:00<br>이메일: curator@atelier-archive.kr<br>서울시 용산구 한남대로 아카이브 스튜디오</p>
+      </div>
+      <div>
+        <h4 style="color:#FAF8F5; margin-bottom:12px; font-size:0.95rem;">MEMBERSHIP &amp; DIGITAL</h4>
+        <p style="font-size:0.85rem; color:#B8AFA6;">전자책 상품은 결제 완료 즉시<br>[내 서재]에서 바로 열람 가능하며,<br>등급별 포인트가 자동 적립됩니다.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 ATELIER ARCHIVE. All rights reserved.</span>
+      <span>GitHub Pages Ready • Single-File Inline Architecture</span>
+    </div>
+  </footer>
+
+  <!-- Cart Drawer -->
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3 style="font-size:1.4rem;">쇼핑백 &amp; 결제</h3>
+      <button onclick="toggleCart()" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItemsContainer"></div>
+    <div class="cart-footer">
+      <div style="margin-bottom:12px;">
+        <label style="font-size:0.82rem; font-weight:600; display:flex; justify-content:space-between; margin-bottom:6px;">
+          <span>포인트 사용 (보유: <strong id="availPointsText">0</strong>P)</span>
+          <button type="button" onclick="useAllPoints()" style="background:none; border:none; color:var(--point-terracotta); font-size:0.78rem; font-weight:600; cursor:pointer; text-decoration:underline;">전액 사용</button>
+        </label>
+        <input type="number" id="usePointInput" value="0" min="0" step="100" oninput="renderCart()" style="width:100%; padding:8px 12px; border:1px solid var(--border); border-radius:8px; background:#FFF;">
+      </div>
+
+      <div style="font-size:0.88rem; display:grid; gap:6px; margin-bottom:16px;">
+        <div style="display:flex; justify-content:space-between;">
+          <span>상품 합계</span>
+          <span id="subtotalText">0원</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; color:var(--point-terracotta);">
+          <span>포인트 할인</span>
+          <span id="discountText">-0원</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-weight:700; font-size:1.08rem; padding-top:8px; border-top:1px solid var(--sand);">
+          <span>최종 결제 금액</span>
+          <span id="finalTotalText">0원</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:var(--point-olive); font-weight:600;">
+          <span>예상 적립 포인트 (<span id="currentTierLabel">비회원</span>)</span>
+          <span id="earnPreviewText">+0P</span>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" style="width:100%; padding:13px;" onclick="openCheckoutModal()">결제하기</button>
+    </div>
+  </div>
+
+  <!-- Auth Modal (Login / Sign Up) -->
+  <div class="modal-backdrop" id="authModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('authModal')">&times;</button>
+      <div style="display:flex; gap:16px; margin-bottom:20px; border-bottom:1px solid var(--border); padding-bottom:12px;">
+        <button id="tabLoginBtn" onclick="switchAuthTab('login')" style="background:none; border:none; font-size:1.05rem; font-weight:700; color:var(--text-main); cursor:pointer;">로그인</button>
+        <button id="tabSignupBtn" onclick="switchAuthTab('signup')" style="background:none; border:none; font-size:1.05rem; font-weight:500; color:var(--text-sub); cursor:pointer;">회원가입 (+3,000P)</button>
+      </div>
+
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label>이메일</label>
+          <input type="email" id="loginEmail" placeholder="vintage@archive.kr" required>
+        </div>
+        <div class="form-group">
+          <label>비밀번호</label>
+          <input type="password" id="loginPassword" placeholder="비밀번호 입력" required>
+        </div>
+        <button type="submit" class="btn btn-dark" style="width:100%; padding:12px;">로그인</button>
+        <p style="font-size:0.78rem; color:var(--text-sub); margin-top:12px; text-align:center;">
+          * 데모 체험 계정: <strong>gold@archive.kr</strong> / 비밀번호 <strong>1234</strong> (GOLD 등급, 15,000P 보유)
+        </p>
+      </form>
+
+      <form id="signupForm" style="display:none;" onsubmit="handleSignup(event)">
+        <div class="form-group">
+          <label>이름 (닉네임)</label>
+          <input type="text" id="signupName" placeholder="김아카이브" required>
+        </div>
+        <div class="form-group">
+          <label>이메일</label>
+          <input type="email" id="signupEmail" placeholder="new@archive.kr" required>
+        </div>
+        <div class="form-group">
+          <label>비밀번호</label>
+          <input type="password" id="signupPassword" placeholder="비밀번호 설정" required>
+        </div>
+        <div class="form-group">
+          <label>초기 체험 등급 선택 (테스트용)</label>
+          <select id="signupTier">
+            <option value="BRONZE">BRONZE (기본 2% 적립 + 가입 3,000P)</option>
+            <option value="SILVER">SILVER (4% 적립 + 가입 5,000P)</option>
+            <option value="GOLD">GOLD (7% 적립 + 가입 10,000P)</option>
+            <option value="VIP">VIP ARCHIVE (10% 적립 + 가입 20,000P)</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; padding:12px;">가입하고 포인트 즉시 받기</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Member Profile & Tier Modal -->
+  <div class="modal-backdrop" id="profileModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('profileModal')">&times;</button>
+      <span class="section-subtitle">Member Dashboard</span>
+      <h3 style="font-size:1.8rem; margin-bottom:16px;" id="profName">회원 정보</h3>
+      <div style="background:var(--bg-beige); padding:18px; border-radius:12px; margin-bottom:18px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <span>현재 회원 등급</span>
+          <span id="profTierBadge"></span>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <span>포인트 적립률</span>
+          <strong id="profRate" style="color:var(--point-terracotta);"></strong>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <span>보유 포인트</span>
+          <strong id="profPoints"></strong>
+        </div>
+        <div style="display:flex; justify-content:space-between;">
+          <span>누적 구매 금액</span>
+          <span id="profTotalSpent"></span>
+        </div>
+      </div>
+      <div style="display:flex; gap:10px;">
+        <button class="btn btn-outline" style="flex:1;" onclick="closeModal('profileModal'); document.getElementById('my-library').scrollIntoView();">내 서재 보기</button>
+        <button class="btn btn-dark" style="flex:1;" onclick="handleLogout()">로그아웃</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment Checkout Modal -->
+  <div class="modal-backdrop" id="checkoutModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('checkoutModal')">&times;</button>
+      <span class="section-subtitle">Secure Checkout</span>
+      <h3 style="font-size:1.8rem; margin-bottom:14px;">주문 및 결제 확인</h3>
+      <div id="checkoutSummary" style="background:var(--bg-beige); padding:16px; border-radius:10px; font-size:0.9rem; margin-bottom:18px;"></div>
+
+      <div class="form-group">
+        <label>수령인 이름</label>
+        <input type="text" id="orderReceiver" required>
+      </div>
+      <div class="form-group">
+        <label>배송지 주소 (전자책 단독 구매 시 자동 디지털 발송)</label>
+        <input type="text" id="orderAddress" value="서울시 성동구 성수이로 77, 아카이브 빌딩 3층">
+      </div>
+      <div class="form-group">
+        <label>결제 수단 선택</label>
+        <select id="paymentMethod">
+          <option value="card">신용 / 체크카드 간편결제</option>
+          <option value="kakaopay">카카오페이 (즉시 승인)</option>
+          <option value="naverpay">네이버페이 (즉시 승인)</option>
+          <option value="bank">무통장 입금 (에스크로)</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" style="width:100%; padding:14px; font-size:1rem;" onclick="processPayment()">결제 승인 및 완료하기</button>
+    </div>
+  </div>
+
+  <!-- Instant E-Book Viewer Modal -->
+  <div class="modal-backdrop" id="readerModal">
+    <div class="modal modal-lg">
+      <button class="modal-close" onclick="closeModal('readerModal')">&times;</button>
+      <span class="section-subtitle">Instant Digital Reader</span>
+      <h3 id="readerTitle" style="font-size:1.9rem;">전자책 뷰어</h3>
+      <p id="readerMeta" style="font-size:0.84rem; color:var(--text-sub); margin-bottom:12px;"></p>
+
+      <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;" id="readerChapterTabs"></div>
+      <div class="reader-page" id="readerContent"></div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px;">
+        <span style="font-size:0.82rem; color:var(--point-olive); font-weight:600;">✓ 정품 디지털 라이선스 인증 완료</span>
+        <button class="btn btn-dark" onclick="downloadEbookSummary()">텍스트 요약본(.txt) 다운로드</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // 1. Product Catalog Data (All images mapped to local img/ folder)
+    const PRODUCTS = [
+      {
+        id: 'prod-1',
+        category: 'outer',
+        era: '1980s ARCHIVE',
+        title: '80s 캐멜 울 더블 브레스티드 코트',
+        desc: '이탈리아산 버진 울 100%, 넉넉한 래글런 숄더와 깊이감 있는 베이지 컬러의 클래식 코트.',
+        price: 189000,
+        img: 'img/prod-coat.jpg',
+        isEbook: false
+      },
+      {
+        id: 'prod-2',
+        category: 'outer',
+        era: '1990s HERITAGE',
+        title: '90s 워시드 인디고 트러커 데님 자켓',
+        desc: '자연스러운 페이딩과 탄탄한 코튼 트윌 조직이 돋보이는 90년대 아메리칸 빈티지 데님.',
+        price: 118000,
+        img: 'img/prod-denim.jpg',
+        isEbook: false
+      },
+      {
+        id: 'prod-3',
+        category: 'top',
+        era: '1970s HANDKNIT',
+        title: '70s 크림 케이블 울 우드버튼 가디건',
+        desc: '포근한 아이보리 원사와 천연 우드 버튼이 어우러진 70년대 빈티지 케이블 니트 가디건.',
+        price: 94000,
+        img: 'img/prod-knit.jpg',
+        isEbook: false
+      },
+      {
+        id: 'prod-4',
+        category: 'bottom',
+        era: '1980s TAILORED',
+        title: '80s 베이지 하이웨이스트 플리츠 린넨 팬츠',
+        desc: '우아하게 떨어지는 투턱 플리츠 라인과 내추럴 린넨 블렌드 원단의 테일러드 트라우저.',
+        price: 86000,
+        img: 'img/prod-trousers.jpg',
+        isEbook: false
+      },
+      {
+        id: 'ebook-1',
+        category: 'ebook',
+        era: 'DIGITAL EDITION',
+        title: '[전자책] 시대를 초월한 빈티지 스타일링 & 감별 가이드',
+        desc: '결제 즉시 내 서재에 배포! 70~90s 연대별 라벨 판독법, 베이지/화이트 캡슐 룩북 수록.',
+        price: 29000,
+        img: 'img/ebook-guide.jpg',
+        isEbook: true,
+        chapters: [
+          {
+            title: 'Chapter 1. 1970s~1990s 빈티지 케어라벨 및 원단 감별법',
+            body: '진정한 빈티지 피스를 구별하는 첫 번째 기준은 케어라벨의 직조 방식과 폰트입니다. 1970년대 유럽 및 아메리칸 아카이브 의류는 주로 면(Cotton) 기반의 인쇄 라벨이나 두꺼운 자수 라벨을 사용했으며, "Made in Italy" 또는 "Pure Virgin Wool" 표기가 선명합니다. 또한 안감의 시접 처리(오버록 대신 바이어스 마감)를 확인하면 제작 연대를 정확히 유추할 수 있습니다.'
+          },
+          {
+            title: 'Chapter 2. 화이트 & 베이지 톤온톤 캡슐 옷장 공식',
+            body: '빈티지 의류를 가장 세련되게 소화하는 방법은 채도를 낮춘 화이트, 아이보리, 오트밀, 캐멜 베이지의 3단계 레이어링입니다. 예를 들어 90년대 인디고 데님 자켓 안에는 70년대 크림 케이블 니트를 매치하고, 하의는 하이웨이스트 베이지 린넨 팬츠로 무게중심을 잡아주면 클래식하면서도 현대적인 실루엣이 완성됩니다.'
+          },
+          {
+            title: 'Chapter 3. 천연 울 & 빈티지 데님 복원 케어 매뉴얼',
+            body: '오랜 시간을 견딘 천연 울 코트와 니트는 잦은 드라이클리닝보다 착용 후 천연 돈모 브러시로 결을 정리하고 통풍이 잘되는 그늘에서 습기를 제거하는 것이 핵심입니다. 빈티지 데님은 뒤집어서 찬물에 중성세제로 단독 손세탁한 뒤 자연 건조해야 고유의 워싱과 원단 수축을 완벽히 보존할 수 있습니다.'
+          }
+        ]
+      },
+      {
+        id: 'ebook-2',
+        category: 'ebook',
+        era: 'DIGITAL LOOKBOOK',
+        title: '[전자책] 프렌치 빈티지 아카이브 바잉 & 수선 노트',
+        desc: '결제 즉시 배포! 파리 마레 지구 빈티지 바잉 루트와 체형별 수선 치수 가이드.',
+        price: 19000,
+        img: 'img/hero-3.jpg',
+        isEbook: true,
+        chapters: [
+          {
+            title: 'Part 1. 빈티지 아우터 어깨선과 소매 기장 수선 황금비율',
+            body: '80년대 빈티지 코트와 블레이저는 파워 숄더 패드가 내장된 경우가 많습니다. 어깨 패드를 0.5cm 얇은 펠트 패드로 교체하고 소매 기장을 손목 뼈가 살짝 드러나도록 수선하면 본인의 맞춤복처럼 자연스러운 핏으로 재탄생합니다.'
+          },
+          {
+            title: 'Part 2. 소재별 얼룩 제거 및 빈티지 버튼 리폼 팁',
+            body: '빈티지 셔츠나 블라우스의 미세한 황변은 산소계 표백제를 미온수에 희석해 20분간 담가두는 것만으로도 본연의 아이보리 톤을 되찾을 수 있습니다. 분실된 단추는 빈티지 뿔단추나 자개 단추로 전체 교체해 가치를 높여보세요.'
+          }
+        ]
+      }
+    ];
+
+    // 2. Membership Tier Configuration
+    const TIERS = {
+      BRONZE: { name: 'BRONZE', rate: 0.02, minSpent: 0 },
+      SILVER: { name: 'SILVER', rate: 0.04, minSpent: 150000 },
+      GOLD:   { name: 'GOLD',   rate: 0.07, minSpent: 400000 },
+      VIP:    { name: 'VIP',    rate: 0.10, minSpent: 800000 }
+    };
+
+    // 3. Application State (Persisted in localStorage)
+    const defaultDemoUsers = [
+      {
+        name: '김아카이브',
+        email: 'gold@archive.kr',
+        password: '1234',
+        tier: 'GOLD',
+        points: 15000,
+        totalSpent: 420000,
+        unlockedEbooks: []
+      }
+    ];
+
+    let users = JSON.parse(localStorage.getItem('aa_users')) || defaultDemoUsers;
+    let currentUserEmail = localStorage.getItem('aa_current_user') || null;
+    let cart = JSON.parse(localStorage.getItem('aa_cart')) || [];
+    let currentFilter = 'all';
+    let activeReaderBook = null;
+
+    function getCurrentUser() {
+      if (!currentUserEmail) return null;
+      return users.find(u => u.email === currentUserEmail) || null;
+    }
+
+    function saveState() {
+      localStorage.setItem('aa_users', JSON.stringify(users));
+      if (currentUserEmail) {
+        localStorage.setItem('aa_current_user', currentUserEmail);
+      } else {
+        localStorage.removeItem('aa_current_user');
+      }
+      localStorage.setItem('aa_cart', JSON.stringify(cart));
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3200);
+    }
+
+    // 4. Hero Slider Logic
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+
+    function goToSlide(index) {
+      slides[currentSlide].classList.remove('active');
+      dots[currentSlide].classList.remove('active');
+      currentSlide = (index + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+      dots[currentSlide].classList.add('active');
+    }
+
+    function changeSlide(dir) {
+      goToSlide(currentSlide + dir);
+    }
+
+    setInterval(() => changeSlide(1), 5500);
+
+    // 5. Render Products
+    function filterProducts(cat, btn) {
+      currentFilter = cat;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderProducts();
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById('productGrid');
+      const user = getCurrentUser();
+      const rate = user ? TIERS[user.tier].rate : 0.02;
+
+      const filtered = currentFilter === 'all'
+        ? PRODUCTS
+        : PRODUCTS.filter(p => p.category === currentFilter);
+
+      grid.innerHTML = filtered.map(p => {
+        const earnPts = Math.floor(p.price * rate);
+        return `
+          <div class="product-card">
+            <div class="product-img-wrap">
+              <img src="${p.img}" alt="${p.title}">
+              <span class="era-badge">${p.era}</span>
+              ${p.isEbook ? '<span class="ebook-badge">즉시 배포 전자책</span>' : ''}
+            </div>
+            <div class="product-info">
+              <div>
+                <div class="product-meta">${p.isEbook ? 'DIGITAL E-BOOK' : 'ONE-OF-A-KIND VINTAGE'}</div>
+                <h3 class="product-title">${p.title}</h3>
+                <p class="product-desc">${p.desc}</p>
+              </div>
+              <div class="product-footer">
+                <div class="price-box">
+                  <span class="price">${p.price.toLocaleString()}원</span>
+                  <span class="point-earn">+${earnPts.toLocaleString()}P 적립 (${Math.round(rate*100)}%)</span>
+                </div>
+                <button class="btn btn-dark" style="padding:8px 14px; font-size:0.82rem;" onclick="addToCart('${p.id}')">담기</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 6. Cart & Point Calculation Logic
+    function addToCart(productId) {
+      const product = PRODUCTS.find(p => p.id === productId);
+      if (!product) return;
+
+      const existing = cart.find(item => item.id === productId);
+      if (existing) {
+        if (product.isEbook) {
+          showToast('전자책은 1회 구매로 영구 소장 및 즉시 열람됩니다.');
+          toggleCart(true);
+          return;
+        }
+        existing.qty += 1;
+      } else {
+        cart.push({ id: productId, qty: 1 });
+      }
+      saveState();
+      renderCart();
+      showToast(`"${product.title}" 장바구니에 담겼습니다.`);
+    }
+
+    function directBuyEbook(productId) {
+      const existing = cart.find(item => item.id === productId);
+      if (!existing) {
+        cart.push({ id: productId, qty: 1 });
+        saveState();
+      }
+      renderCart();
+      openCheckoutModal();
+    }
+
+    function updateQty(productId, delta) {
+      const idx = cart.findIndex(i => i.id === productId);
+      if (idx === -1) return;
+      cart[idx].qty += delta;
+      if (cart[idx].qty <= 0) cart.splice(idx, 1);
+      saveState();
+      renderCart();
+    }
+
+    function toggleCart(forceOpen) {
+      const drawer = document.getElementById('cartDrawer');
+      if (typeof forceOpen === 'boolean') {
+        drawer.classList.toggle('open', forceOpen);
+      } else {
+        drawer.classList.toggle('open');
+      }
+      renderCart();
+    }
+
+    function useAllPoints() {
+      const user = getCurrentUser();
+      if (!user) {
+        showToast('포인트를 사용하려면 먼저 로그인해주세요.');
+        return;
+      }
+      const subtotal = getCartSubtotal();
+      const maxUsable = Math.min(user.points, subtotal);
+      document.getElementById('usePointInput').value = maxUsable;
+      renderCart();
+    }
+
+    function getCartSubtotal() {
+      return cart.reduce((sum, item) => {
+        const p = PRODUCTS.find(prod => prod.id === item.id);
+        return sum + (p ? p.price * item.qty : 0);
+      }, 0);
+    }
+
+    function renderCart() {
+      const container = document.getElementById('cartItemsContainer');
+      const totalCount = cart.reduce((s, i) => s + i.qty, 0);
+      document.getElementById('cartCount').textContent = totalCount;
+
+      if (cart.length === 0) {
+        container.innerHTML = `<p style="text-align:center; color:var(--text-sub); padding:48px 0;">장바구니가 비어 있습니다.</p>`;
+      } else {
+        container.innerHTML = cart.map(item => {
+          const p = PRODUCTS.find(prod => prod.id === item.id);
+          return `
+            <div class="cart-item">
+              <img src="${p.img}" alt="${p.title}">
+              <div style="flex:1;">
+                <div style="font-size:0.88rem; font-weight:600; margin-bottom:4px;">${p.title}</div>
+                <div style="font-size:0.84rem; color:var(--point-terracotta); font-weight:600;">${p.price.toLocaleString()}원</div>
+                <div style="display:flex; align-items:center; gap:8px; margin-top:8px;">
+                  <button onclick="updateQty('${p.id}', -1)" style="width:24px; height:24px; border:1px solid var(--border); background:#FFF; border-radius:4px; cursor:pointer;">-</button>
+                  <span style="font-size:0.85rem;">${item.qty}</span>
+                  <button onclick="updateQty('${p.id}', 1)" style="width:24px; height:24px; border:1px solid var(--border); background:#FFF; border-radius:4px; cursor:pointer;">+</button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      const user = getCurrentUser();
+      const subtotal = getCartSubtotal();
+      const availPoints = user ? user.points : 0;
+      document.getElementById('availPointsText').textContent = availPoints.toLocaleString();
+
+      let usedPoints = parseInt(document.getElementById('usePointInput').value, 10) || 0;
+      if (usedPoints < 0) usedPoints = 0;
+      if (usedPoints > availPoints) usedPoints = availPoints;
+      if (usedPoints > subtotal) usedPoints = subtotal;
+      document.getElementById('usePointInput').value = usedPoints;
+
+      const finalTotal = subtotal - usedPoints;
+      const tierInfo = user ? TIERS[user.tier] : null;
+      const earnPoints = tierInfo ? Math.floor(finalTotal * tierInfo.rate) : 0;
+
+      document.getElementById('subtotalText').textContent = `${subtotal.toLocaleString()}원`;
+      document.getElementById('discountText').textContent = `-${usedPoints.toLocaleString()}원`;
+      document.getElementById('finalTotalText').textContent = `${finalTotal.toLocaleString()}원`;
+      document.getElementById('currentTierLabel').textContent = tierInfo ? `${tierInfo.name} ${Math.round(tierInfo.rate*100)}%` : '비회원 (가입 시 적립)';
+      document.getElementById('earnPreviewText').textContent = `+${earnPoints.toLocaleString()}P`;
+    }
+
+    // 7. Authentication & Tier Management
+    function openAuthModal() {
+      document.getElementById('authModal').classList.add('open');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    function switchAuthTab(tab) {
+      const isLogin = tab === 'login';
+      document.getElementById('loginForm').style.display = isLogin ? 'block' : 'none';
+      document.getElementById('signupForm').style.display = isLogin ? 'none' : 'block';
+      document.getElementById('tabLoginBtn').style.fontWeight = isLogin ? '700' : '500';
+      document.getElementById('tabLoginBtn').style.color = isLogin ? 'var(--text-main)' : 'var(--text-sub)';
+      document.getElementById('tabSignupBtn').style.fontWeight = !isLogin ? '700' : '500';
+      document.getElementById('tabSignupBtn').style.color = !isLogin ? 'var(--text-main)' : 'var(--text-sub)';
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const pw = document.getElementById('loginPassword').value.trim();
+      const found = users.find(u => u.email === email && u.password === pw);
+
+      if (!found) {
+        alert('이메일 또는 비밀번호가 일치하지 않습니다. (체험 계정: gold@archive.kr / 1234)');
+        return;
+      }
+      currentUserEmail = found.email;
+      saveState();
+      closeModal('authModal');
+      updateUI();
+      showToast(`${found.name}님 환영합니다! (${found.tier} 등급)`);
+    }
+
+    function handleSignup(e) {
+      e.preventDefault();
+      const name = document.getElementById('signupName').value.trim();
+      const email = document.getElementById('signupEmail').value.trim();
+      const password = document.getElementById('signupPassword').value.trim();
+      const tier = document.getElementById('signupTier').value;
+
+      if (users.some(u => u.email === email)) {
+        alert('이미 가입된 이메일입니다.');
+        return;
+      }
+
+      const bonusMap = { BRONZE: 3000, SILVER: 5000, GOLD: 10000, VIP: 20000 };
+      const spentMap = { BRONZE: 0, SILVER: 150000, GOLD: 400000, VIP: 800000 };
+
+      const newUser = {
+        name,
+        email,
+        password,
+        tier,
+        points: bonusMap[tier],
+        totalSpent: spentMap[tier],
+        unlockedEbooks: []
+      };
+
+      users.push(newUser);
+      currentUserEmail = email;
+      saveState();
+      closeModal('authModal');
+      updateUI();
+      showToast(`회원가입 완료! ${tier} 등급 및 ${bonusMap[tier].toLocaleString()}P가 지급되었습니다.`);
+    }
+
+    function handleLogout() {
+      currentUserEmail = null;
+      saveState();
+      closeModal('profileModal');
+      updateUI();
+      showToast('로그아웃 되었습니다.');
+    }
+
+    function openProfileModal() {
+      const user = getCurrentUser();
+      if (!user) return;
+      document.getElementById('profName').textContent = `${user.name}님의 멤버십`;
+      document.getElementById('profTierBadge').innerHTML = `<span class="tier-badge tier-${user.tier}">${user.tier}</span>`;
+      document.getElementById('profRate').textContent = `${Math.round(TIERS[user.tier].rate * 100)}% 적립`;
+      document.getElementById('profPoints').textContent = `${user.points.toLocaleString()} P`;
+      document.getElementById('profTotalSpent').textContent = `${user.totalSpent.toLocaleString()} 원`;
+      document.getElementById('profileModal').classList.add('open');
+    }
+
+    function recalculateTier(user) {
+      if (user.totalSpent >= TIERS.VIP.minSpent) user.tier = 'VIP';
+      else if (user.totalSpent >= TIERS.GOLD.minSpent) user.tier = 'GOLD';
+      else if (user.totalSpent >= TIERS.SILVER.minSpent) user.tier = 'SILVER';
+      else user.tier = 'BRONZE';
+    }
+
+    // 8. Checkout & Instant E-Book Distribution
+    function openCheckoutModal() {
+      if (cart.length === 0) {
+        showToast('결제할 상품을 먼저 장바구니에 담아주세요.');
+        return;
+      }
+      const user = getCurrentUser();
+      if (!user) {
+        showToast('포인트 적립과 전자책 즉시 배포를 위해 로그인 또는 회원가입을 진행해주세요.');
+        toggleCart(false);
+        openAuthModal();
+        switchAuthTab('signup');
+        return;
+      }
+
+      const subtotal = getCartSubtotal();
+      const usedPoints = parseInt(document.getElementById('usePointInput').value, 10) || 0;
+      const finalTotal = subtotal - usedPoints;
+      const earnPoints = Math.floor(finalTotal * TIERS[user.tier].rate);
+      const hasEbook = cart.some(item => PRODUCTS.find(p => p.id === item.id)?.isEbook);
+
+      document.getElementById('orderReceiver').value = user.name;
+      document.getElementById('checkoutSummary').innerHTML = `
+        <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+          <span>주문자 / 등급</span>
+          <strong>${user.name} (${user.tier})</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+          <span>총 주문 금액</span>
+          <span>${subtotal.toLocaleString()}원</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:6px; color:var(--point-terracotta);">
+          <span>포인트 사용 할인</span>
+          <span>-${usedPoints.toLocaleString()}원</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-weight:700; font-size:1.05rem; border-top:1px solid var(--sand); padding-top:8px; margin-top:6px;">
+          <span>최종 결제 금액</span>
+          <span>${finalTotal.toLocaleString()}원</span>
+        </div>
+        <div style="margin-top:8px; font-size:0.82rem; color:var(--point-olive);">
+          • 결제 완료 시 <strong>+${earnPoints.toLocaleString()}P</strong> 즉시 적립<br>
+          ${hasEbook ? '• <strong>디지털 전자책 포함: 결제 즉시 [내 서재]에 자동 배포됩니다.</strong>' : ''}
+        </div>
+      `;
+
+      toggleCart(false);
+      document.getElementById('checkoutModal').classList.add('open');
+    }
+
+    function processPayment() {
+      const user = getCurrentUser();
+      if (!user) return;
+
+      const subtotal = getCartSubtotal();
+      const usedPoints = parseInt(document.getElementById('usePointInput').value, 10) || 0;
+      const finalTotal = subtotal - usedPoints;
+      const prevTier = user.tier;
+
+      // Deduct used points & add earned points
+      const earnedPoints = Math.floor(finalTotal * TIERS[user.tier].rate);
+      user.points = user.points - usedPoints + earnedPoints;
+      user.totalSpent += finalTotal;
+      recalculateTier(user);
+
+      // Instant E-Book Deployment
+      let deployedBooks = [];
+      cart.forEach(item => {
+        const prod = PRODUCTS.find(p => p.id === item.id);
+        if (prod && prod.isEbook) {
+          if (!user.unlockedEbooks.includes(prod.id)) {
+            user.unlockedEbooks.push(prod.id);
+          }
+          deployedBooks.push(prod);
+        }
+      });
+
+      // Clear cart
+      cart = [];
+      document.getElementById('usePointInput').value = 0;
+      saveState();
+      closeModal('checkoutModal');
+      updateUI();
+
+      let msg = `결제 완료! +${earnedPoints.toLocaleString()}P 적립되었습니다.`;
+      if (user.tier !== prevTier) {
+        msg += ` 축하합니다! ${user.tier} 등급으로 승급되었습니다!`;
+      }
+      showToast(msg);
+
+      // If an E-book was purchased, immediately open it for the user!
+      if (deployedBooks.length > 0) {
+        setTimeout(() => {
+          openEbookReader(deployedBooks[0].id);
+        }, 600);
+      }
+    }
+
+    // 9. E-Book Library & Instant Reader
+    function renderLibrary() {
+      const container = document.getElementById('libraryContainer');
+      const info = document.getElementById('libraryUserInfo');
+      const user = getCurrentUser();
+
+      if (!user) {
+        info.textContent = '로그인 후 구매한 전자책을 바로 열람할 수 있습니다.';
+        container.innerHTML = `
+          <div class="library-empty">
+            <p style="margin-bottom:14px;">현재 로그인되어 있지 않습니다. 회원가입 또는 로그인 후 전자책을 결제하면 이곳에 즉시 배포됩니다.</p>
+            <button class="btn btn-outline" onclick="openAuthModal()">로그인 / 회원가입</button>
+          </div>
+        `;
+        return;
+      }
+
+      info.innerHTML = `<strong>${user.name}</strong>님의 서재 (보유 전자책: ${user.unlockedEbooks.length}권)`;
+
+      if (user.unlockedEbooks.length === 0) {
+        container.innerHTML = `
+          <div class="library-empty">
+            <p style="margin-bottom:14px;">아직 구매한 디지털 전자책이 없습니다. 전자책 결제 시 배송 대기 없이 1초 만에 이곳에 배포됩니다.</p>
+            <a href="#ebook-section" class="btn btn-primary">디지털 전자책 보러가기</a>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = user.unlockedEbooks.map(bookId => {
+        const book = PRODUCTS.find(p => p.id === bookId);
+        if (!book) return '';
+        return `
+          <div class="unlocked-book-item">
+            <div style="display:flex; align-items:center; gap:16px;">
+              <img src="${book.img}" alt="${book.title}" style="width:56px; height:72px; object-fit:cover; border-radius:6px;">
+              <div>
+                <span class="tier-badge tier-GOLD" style="margin-bottom:4px; display:inline-block;">배포 완료 • 영구 소장</span>
+                <h4 style="font-size:1.05rem;">${book.title}</h4>
+                <span style="font-size:0.82rem; color:var(--text-sub);">클릭하여 즉시 전체 본문 열람 및 요약본 다운로드</span>
+              </div>
+            </div>
+            <button class="btn btn-dark" onclick="openEbookReader('${book.id}')">지금 바로 읽기</button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openEbookReader(bookId) {
+      const book = PRODUCTS.find(p => p.id === bookId);
+      if (!book || !book.chapters) return;
+      activeReaderBook = book;
+
+      document.getElementById('readerTitle').textContent = book.title;
+      document.getElementById('readerMeta').textContent = 'ATELIER ARCHIVE DIGITAL EDITION • 결제 즉시 배포 정품 뷰어';
+
+      const tabs = document.getElementById('readerChapterTabs');
+      tabs.innerHTML = book.chapters.map((ch, idx) => `
+        <button class="filter-btn ${idx === 0 ? 'active' : ''}" onclick="selectReaderChapter(${idx}, this)">
+          Part ${idx + 1}
+        </button>
+      `).join('');
+
+      selectReaderChapter(0);
+      document.getElementById('readerModal').classList.add('open');
+    }
+
+    function selectReaderChapter(idx, btn) {
+      if (!activeReaderBook) return;
+      if (btn) {
+        document.querySelectorAll('#readerChapterTabs .filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      const ch = activeReaderBook.chapters[idx];
+      document.getElementById('readerContent').innerHTML = `
+        <h4>${ch.title}</h4>
+        <p>${ch.body}</p>
+      `;
+    }
+
+    function downloadEbookSummary() {
+      if (!activeReaderBook) return;
+      const text = [
+        `=== ${activeReaderBook.title} ===`,
+        `발행처: ATELIER ARCHIVE`,
+        ``,
+        ...activeReaderBook.chapters.map(c => `[${c.title}]
+${c.body}
+`)
+      ].join('
+');
+
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${activeReaderBook.id}-guide.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('전자책 요약본 파일이 다운로드되었습니다.');
+    }
+
+    // 10. Global UI Sync
+    function updateUI() {
+      const user = getCurrentUser();
+      const authArea = document.getElementById('authArea');
+
+      if (user) {
+        authArea.innerHTML = `
+          <div class="user-pill" onclick="openProfileModal()" title="회원 등급 및 포인트 상세">
+            <span class="tier-badge tier-${user.tier}">${user.tier}</span>
+            <strong>${user.name}님</strong>
+            <span style="color:var(--point-terracotta); font-weight:700;">${user.points.toLocaleString()}P</span>
+          </div>
+        `;
+      } else {
+        authArea.innerHTML = `
+          <button class="btn btn-outline" onclick="openAuthModal()">로그인 / 회원가입</button>
+        `;
+      }
+
+      renderProducts();
+      renderCart();
+      renderLibrary();
+    }
+
+    // Initialize App
+    updateUI();
+  </script>
+</body>
+</html>
